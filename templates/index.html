@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Sign Language Interpreter</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .video-container {
+            aspect-ratio: 16/9;
+            background-color: #1a1a1a;
+        }
+        .history-container {
+            max-height: calc(100vh - 12rem);
+        }
+        @keyframes pulse-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+            }
+        }
+        .recording-indicator {
+            animation: pulse-border 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-hands text-3xl"></i>
+                    <h1 class="text-2xl font-bold">Indian Sign Language Interpreter</h1>
+                </div>
+                <div id="recordingStatus" class="hidden items-center space-x-2">
+                    <div class="recording-indicator h-3 w-3 bg-red-600 rounded-full"></div>
+                    <span class="text-sm">Recording</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Video Feed Section -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="video-container rounded-lg overflow-hidden mb-6">
+                        <img id="videoFeed" src="/video_feed" alt="Video Feed" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- Controls -->
+                    <div class="flex justify-center space-x-4">
+                        <button id="startBtn" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition duration-200 flex items-center space-x-2">
+                            <i class="fas fa-play"></i>
+                            <span>Start</span>
+                        </button>
+                        <button id="stopBtn" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg transition duration-200 flex items-center space-x-2 hidden">
+                            <i class="fas fa-stop"></i>
+                            <span>Stop</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Recognition History</h2>
+                    <div class="flex space-x-2">
+                        <button id="downloadBtn" class="text-blue-500 hover:text-blue-600 transition duration-200">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button id="clearBtn" class="text-red-500 hover:text-red-600 transition duration-200">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="historyList" class="history-container overflow-y-auto space-y-3">
+                    <!-- History items will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Indian Sign Language Interpreter. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
